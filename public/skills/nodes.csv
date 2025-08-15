@@ -1,21 +1,20 @@
 id,label,type
-Core Problem Solving,Core Problem Solving,domain
-Technical Trades,Technical Trades,domain
-Engineering & Design,Engineering & Design,domain
-Digital & Creative,Digital & Creative,domain
-Business & Marketing,Business & Marketing,domain
-
-Learning Agility,Learning Agility,skill
-Pattern Recognition,Pattern Recognition,skill
+Core_Problem_Solving,Core Problem Solving,domain
+Technical_Trades,Technical Trades,domain
+Engineering_Design,Engineering & Design,domain
+Digital_Creative,Digital & Creative,domain
+Business_Marketing,Business & Marketing,domain
+Learning_Agility,Learning Agility,skill
+Pattern_Recognition,Pattern Recognition,skill
 Adaptability,Adaptability,skill
-Knowledge Breadth,Knowledge Breadth,skill
-Masonry & Construction,Masonry & Construction,skill
-Woodworking & Woodturning,Woodworking & Woodturning,skill
-Electrical Engineering Fundamentals,Electrical Engineering Fundamentals,skill
-CAD/CAM (Fusion 360, Aspire),CAD/CAM (Fusion 360, Aspire),skill
-PCB Design (Eagle, KiCad),PCB Design (Eagle, KiCad),skill
-Embedded Systems Programming,Embedded Systems Programming,skill
-Web Development (HTML/CSS/JS/Next.js),Web Development (HTML/CSS/JS/Next.js),skill
-Adobe/DaVinci (Video & Design),Adobe/DaVinci (Video & Design),skill
-SEO & Content Strategy,SEO & Content Strategy,skill
-Brand Building & GTM,Brand Building & GTM,skill
+Knowledge_Breadth,Knowledge Breadth,skill
+Masonry_Construction,Masonry & Construction,skill
+Woodworking_Woodturning,Woodworking & Woodturning,skill
+EE_Fundamentals,Electrical Engineering Fundamentals,skill
+CAD_CAM_Fusion360_Aspire,CAD/CAM (Fusion 360, Aspire),skill
+PCB_Eagle_KiCad,PCB Design (Eagle, KiCad),skill
+Embedded_Systems_Programming,Embedded Systems Programming,skill
+Web_Dev_HTML_CSS_JS_Next,Web Development (HTML/CSS/JS/Next.js),skill
+Adobe_DaVinci_Video_Design,Adobe/DaVinci (Video & Design),skill
+SEO_Content_Strategy,SEO & Content Strategy,skill
+Brand_Building_GTM,Brand Building & GTM,skill

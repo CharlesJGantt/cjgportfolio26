@@ -15,17 +15,26 @@ export default function HomePage() {
         <div className="container mx-auto px-4 space-y-4">
           <h2 className="text-2xl font-bold">Interconnected Skill Map</h2>
           <p className="max-w-3xl text-slate-500">
-            Domains orbit my core problem-solving center. Each skill connects to its domain and bridges others.
+            Categories group my capabilities; lines show crossovers where skills reinforce each other.
           </p>
           <div className="max-w-5xl mx-auto">
             <SkillMap />
           </div>
           <ul className="mt-4 grid gap-2 text-sm text-slate-500 md:grid-cols-2">
             <li>
-              <b>Domains:</b> Core Problem Solving; Technical Trades; Engineering & Design; Digital & Creative; Business & Marketing
+              <b>Core Problem Solving:</b> Learning Agility, Pattern Recognition, Adaptability, Knowledge Breadth
             </li>
             <li>
-              <b>Sample skills:</b> Learning Agility; Embedded Systems Programming; Fusion 360; SEO & Content Strategy; Web Development
+              <b>Technical Trades:</b> Masonry & Construction, Woodworking & Woodturning, Electrical Engineering Fundamentals
+            </li>
+            <li>
+              <b>Engineering & Design:</b> CAD/CAM (Fusion 360, Aspire), PCB Design (Eagle, KiCad), Embedded Systems Programming
+            </li>
+            <li>
+              <b>Digital & Creative:</b> Web Development (HTML/CSS/JS/Next.js), Adobe/DaVinci (Video & Design)
+            </li>
+            <li>
+              <b>Business & Marketing:</b> SEO & Content Strategy, Brand Building & GTM
             </li>
           </ul>
         </div>

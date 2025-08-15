@@ -1,28 +1,19 @@
 source,target
-Core Problem Solving,Learning Agility
-Core Problem Solving,Pattern Recognition
-Core Problem Solving,Adaptability
-Core Problem Solving,Knowledge Breadth
-
-Technical Trades,Masonry & Construction
-Technical Trades,Woodworking & Woodturning
-Technical Trades,Electrical Engineering Fundamentals
-
-Engineering & Design,CAD/CAM (Fusion 360, Aspire)
-Engineering & Design,PCB Design (Eagle, KiCad)
-Engineering & Design,Embedded Systems Programming
-
-Digital & Creative,Web Development (HTML/CSS/JS/Next.js)
-Digital & Creative,Adobe/DaVinci (Video & Design)
-
-Business & Marketing,SEO & Content Strategy
-Business & Marketing,Brand Building & GTM
-
-# cross-domain bridges
-Technical Trades,Engineering & Design
-Engineering & Design,Digital & Creative
-Digital & Creative,Business & Marketing
-Core Problem Solving,Technical Trades
-Core Problem Solving,Engineering & Design
-Core Problem Solving,Digital & Creative
-Core Problem Solving,Business & Marketing
+Core_Problem_Solving,Learning_Agility
+Core_Problem_Solving,Pattern_Recognition
+Core_Problem_Solving,Adaptability
+Core_Problem_Solving,Knowledge_Breadth
+Technical_Trades,Masonry_Construction
+Technical_Trades,Woodworking_Woodturning
+Technical_Trades,EE_Fundamentals
+Engineering_Design,CAD_CAM_Fusion360_Aspire
+Engineering_Design,PCB_Eagle_KiCad
+Engineering_Design,Embedded_Systems_Programming
+Digital_Creative,Web_Dev_HTML_CSS_JS_Next
+Digital_Creative,Adobe_DaVinci_Video_Design
+Business_Marketing,SEO_Content_Strategy
+Business_Marketing,Brand_Building_GTM
+Technical_Trades,Engineering_Design
+Engineering_Design,Digital_Creative
+Digital_Creative,Business_Marketing
+PCB_Eagle_KiCad,SEO_Content_Strategy
