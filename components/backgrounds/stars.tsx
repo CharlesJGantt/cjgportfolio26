@@ -24,7 +24,7 @@ function generateStars(count: number, starColor: string) {
 }
 
 function StarLayer({
-  count = 200,
+  count = 100,
   size = 1,
   starColor = "#fff",
   className,
@@ -95,9 +95,9 @@ function StarsBackground({
         className={cn({ "pointer-events-none": !pointerEvents })}
         style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
       >
-        <StarLayer count={200} size={1} starColor={starColor} />
-        <StarLayer count={80} size={2} starColor={starColor} />
-        <StarLayer count={40} size={3} starColor={starColor} />
+        <StarLayer count={100} size={1} starColor={starColor} />
+        <StarLayer count={40} size={2} starColor={starColor} />
+        <StarLayer count={20} size={3} starColor={starColor} />
       </div>
       {children}
     </div>

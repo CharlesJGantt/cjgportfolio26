@@ -14,8 +14,8 @@ type HoleBackgroundProps = React.ComponentProps<"div"> & {
 
 function HoleBackground({
   strokeColor = "#737373",
-  numberOfLines = 50,
-  numberOfDiscs = 50,
+  numberOfLines = 30,
+  numberOfDiscs = 30,
   particleRGBColor = [255, 255, 255],
   className,
   children,
@@ -219,7 +219,7 @@ function HoleBackground({
       (width - stateRef.current.particleArea.sw) / 2;
     stateRef.current.particleArea.ex =
       (width - stateRef.current.particleArea.ew) / 2;
-    const totalParticles = 100;
+    const totalParticles = 50;
 
     for (let i = 0; i < totalParticles; i++) {
       stateRef.current.particles.push(initParticle(true));
@@ -330,7 +330,24 @@ function HoleBackground({
 
     if (!canvas) return;
     init();
-    tick();
+
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const start = () => {
+      cancelAnimationFrame(animationFrameIdRef.current);
+      animationFrameIdRef.current = requestAnimationFrame(tick);
+    };
+
+    const stop = () => cancelAnimationFrame(animationFrameIdRef.current);
+
+    const handleVisibilityChange = () => {
+      if (document.hidden || media.matches) {
+        stop();
+      } else {
+        start();
+      }
+    };
+
     const handleResize = () => {
       setSize();
       setDiscs();
@@ -338,11 +355,17 @@ function HoleBackground({
       setParticles();
     };
 
+    handleVisibilityChange();
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    media.addEventListener("change", handleVisibilityChange);
     window.addEventListener("resize", handleResize);
 
     return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      media.removeEventListener("change", handleVisibilityChange);
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameIdRef.current);
+      stop();
     };
   }, [init, tick, setSize, setDiscs, setLines, setParticles]);
 
