@@ -1,10 +1,10 @@
 export const DATA = {
   home: {
     hero: {
-      name: "Sofiane Bahmed",
-      title: "Full stack developer & UI/UX Designer",
+      name: "Charles Gantt",
+      title: "I design, build, and market",
       subtitle:
-        "I build fast, accessible and visually engaging web experiences.",
+        "turning ideas into products, campaigns, and content that drive measurable results.",
     },
     skills: {
       sectionTitle: "Skills & Expertise",

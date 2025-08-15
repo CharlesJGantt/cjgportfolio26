@@ -45,8 +45,9 @@ export const HeroSection = ({
             initial={{ opacity: 0, y: 20 }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            Hi, I&apos;m {name} &mdash; I design &amp; code modern web
-            experiences.
+            Hi, I&apos;m {name} - a cross-disciplinary problem solver, maker,
+            and innovator blending tech, content, and design to deliver
+            impactful solutions.
           </motion.h1>
 
           <motion.p
@@ -55,7 +56,7 @@ export const HeroSection = ({
             initial={{ opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            {title}: {subtitle}
+            {title} &mdash; {subtitle}
           </motion.p>
 
           <motion.div
