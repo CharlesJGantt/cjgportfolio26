@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardBody, Progress } from "@heroui/react";
+import { Card, CardBody } from "@heroui/react";
 import { Icon } from "@iconify/react";
 
 import { GradientText } from "@/components/textAnimations/gradient-text";
@@ -42,10 +42,14 @@ export const SkillsOverviewSection = () => {
               <Card className="border-none shadow-md ">
                 <CardBody className="p-6">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className={`p-3 rounded-full bg-${skill.color}-100`}>
+                    <div
+                      className="p-3 rounded-full"
+                      style={{ backgroundColor: `${skill.color}33` }}
+                    >
                       <Icon
-                        className={`w-6 h-6 text-${skill.color}-500`}
+                        className="w-6 h-6"
                         icon={skill.icon}
+                        style={{ color: skill.color }}
                       />
                     </div>
                     <div>
@@ -53,11 +57,18 @@ export const SkillsOverviewSection = () => {
                       <p className="text-foreground-600">{skill.level}%</p>
                     </div>
                   </div>
-                  <Progress
-                    className="h-2"
-                    color={skill.color}
-                    value={skill.level}
-                  />
+                  <div
+                    className="w-full h-2 rounded-full"
+                    style={{ backgroundColor: `${skill.color}33` }}
+                  >
+                    <div
+                      className="h-2 rounded-full"
+                      style={{
+                        width: `${skill.level}%`,
+                        backgroundColor: skill.color,
+                      }}
+                    />
+                  </div>
                 </CardBody>
               </Card>
             </motion.div>
