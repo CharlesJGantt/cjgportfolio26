@@ -1,51 +1,38 @@
 "use client";
 
-import type { Node, Edge } from "reactflow";
+import type { Edge, Node, ReactFlowInstance } from "reactflow";
 
 import dynamic from "next/dynamic";
 import Papa from "papaparse";
 import { useEffect, useState } from "react";
-import { Card } from "@heroui/react";
 import "reactflow/dist/style.css";
 
-const ReactFlow = dynamic(() => import("reactflow").then((mod) => mod.default), {
-  ssr: false,
-});
+const ReactFlow = dynamic(() => import("reactflow"), { ssr: false });
 const Background = dynamic(
   () => import("reactflow").then((mod) => mod.Background),
   { ssr: false }
 );
-const Controls = dynamic(
-  () => import("reactflow").then((mod) => mod.Controls),
-  { ssr: false }
-);
 
-type CsvNode = {
+interface CsvNode {
   id: string;
   label: string;
   type: "domain" | "skill";
-  fx?: number;
-  fy?: number;
-};
-type CsvLink = { source: string; target: string };
-
-function polar(cx: number, cy: number, r: number, deg: number) {
-  const a = (deg * Math.PI) / 180;
-
-  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+}
+interface CsvLink {
+  source: string;
+  target: string;
 }
 
 export default function SkillMap({
   nodesCsv = "/skills/nodes.csv",
   linksCsv = "/skills/links.csv",
-  dark = true,
 }: {
   nodesCsv?: string;
   linksCsv?: string;
-  dark?: boolean;
 }) {
   const [nodes, setNodes] = useState<Node[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
+  const [instance, setInstance] = useState<ReactFlowInstance | null>(null);
 
   useEffect(() => {
     const loadNodes = new Promise<CsvNode[]>((resolve) =>
@@ -53,10 +40,7 @@ export default function SkillMap({
         download: true,
         header: true,
         skipEmptyLines: true,
-        complete: (res) =>
-          resolve(
-            (res.data as CsvNode[]).map((n) => ({ ...n, type: n.type as any }))
-          ),
+        complete: (res) => resolve(res.data as CsvNode[]),
       })
     );
     const loadLinks = new Promise<CsvLink[]>((resolve) =>
@@ -69,101 +53,159 @@ export default function SkillMap({
     );
 
     Promise.all([loadNodes, loadLinks]).then(([nodeData, linkData]) => {
-      const W = 1200,
-        H = 720,
-        cx = W / 2,
-        cy = H / 2;
       const domains = nodeData.filter((n) => n.type === "domain");
       const skills = nodeData.filter((n) => n.type === "skill");
 
-      const step = 360 / domains.length;
-
-      domains.forEach((d, i) => {
-        const { x, y } = polar(cx, cy, 220, i * step - 90);
-
-        d.fx = x;
-        d.fy = y;
-      });
-
+      // Determine home category for each skill
       const home = new Map<string, string>();
 
       linkData.forEach((l) => {
         const s = nodeData.find((n) => n.id === l.source);
         const t = nodeData.find((n) => n.id === l.target);
 
-        if (s && t) {
-          if (s.type === "domain" && t.type === "skill") home.set(t.id, s.id);
-          if (t.type === "domain" && s.type === "skill") home.set(s.id, t.id);
-        }
+        if (!s || !t) return;
+        if (s.type === "domain" && t.type === "skill" && !home.has(t.id))
+          home.set(t.id, s.id);
+        if (t.type === "domain" && s.type === "skill" && !home.has(s.id))
+          home.set(s.id, t.id);
       });
 
+      // Group skills by domain
       const grouped: Record<string, CsvNode[]> = {};
 
       skills.forEach((s) => {
-        const key = home.get(s.id) || domains[0].id;
+        const dom = home.get(s.id);
 
-        grouped[key] = grouped[key] || [];
-        grouped[key].push(s);
+        if (!dom) return;
+        grouped[dom] = grouped[dom] || [];
+        grouped[dom].push(s);
       });
-      Object.entries(grouped).forEach(([domId, arr]) => {
-        const d = domains.find((x) => x.id === domId)!;
-        const r1 = 95,
-          r2 = 145;
 
-        arr.forEach((s, i) => {
-          const r = i % 2 === 0 ? r1 : r2;
-          const angle = (360 / arr.length) * i;
-          const { x, y } = polar(d.fx!, d.fy!, r, angle);
+      // Layout constants
+      const domainWidth = 320;
+      const skillWidth = 280;
+      const domainHeight = 84;
+      const rowHeight = 84;
+      const rowGap = 18;
+      const colGap = 64;
 
-          s.fx = x;
-          s.fy = y;
+      // Positions map
+      const positions: Record<string, { x: number; y: number }> = {};
+
+      domains.forEach((d, i) => {
+        const x = i * (domainWidth + colGap);
+
+        positions[d.id] = { x, y: 0 };
+        const group = grouped[d.id] || [];
+
+        group.forEach((s, j) => {
+          const sx = x + (domainWidth - skillWidth) / 2;
+          const sy = domainHeight + j * (rowHeight + rowGap);
+
+          positions[s.id] = { x: sx, y: sy };
         });
       });
 
-      const rfNodes: Node[] = nodeData.map((n) => ({
-        id: n.id,
-        position: { x: n.fx || 0, y: n.fy || 0 },
-        data: { label: n.label },
-        draggable: false,
-        selectable: false,
-        className:
-          n.type === "domain"
-            ? "rounded-lg px-3 py-2 text-sm font-medium text-white bg-indigo-600 shadow"
-            : "rounded-md px-2 py-1 text-xs text-white bg-emerald-500 shadow-sm",
-      }));
+      // React Flow nodes
+      const rfNodes: Node[] = nodeData.map((n) => {
+        const pos = positions[n.id] || { x: 0, y: 0 };
 
-      const rfEdges: Edge[] = linkData.map((l, i) => ({
-        id: `e-${i}`,
-        source: l.source,
-        target: l.target,
-        type: "smoothstep",
-        animated: false,
-        selectable: false,
-        style: { stroke: dark ? "#334155" : "#CBD5E1" },
-      }));
+        if (n.type === "domain") {
+          return {
+            id: n.id,
+            position: pos,
+            data: { label: n.label },
+            draggable: false,
+            selectable: false,
+            className:
+              "w-[320px] rounded-xl border border-emerald-500/40 bg-emerald-600/15 px-4 py-2 text-emerald-300 font-semibold tracking-tight shadow-sm backdrop-blur-sm",
+          };
+        }
+
+        return {
+          id: n.id,
+          position: pos,
+          data: { label: n.label },
+          draggable: false,
+          selectable: true,
+          className:
+            "w-[280px] rounded-lg border border-slate-700/70 bg-slate-900/50 px-3 py-2 text-sm text-slate-200 shadow-sm [&.selected]:ring-2 [&.selected]:ring-slate-400",
+        };
+      });
+
+      // React Flow edges
+      const rfEdges: Edge[] = linkData.map((l, i) => {
+        const s = nodeData.find((n) => n.id === l.source);
+        const t = nodeData.find((n) => n.id === l.target);
+        const membership =
+          (s?.type === "domain" && t?.type === "skill") ||
+          (s?.type === "skill" && t?.type === "domain");
+
+        return {
+          id: `e-${i}`,
+          source: l.source,
+          target: l.target,
+          type: "smoothstep",
+          animated: !membership,
+          selectable: false,
+          style: membership
+            ? { stroke: "hsl(var(--border-stronger))", strokeWidth: 0.5 }
+            : {
+                stroke: "hsl(var(--border-stronger))",
+                strokeWidth: 0.5,
+                strokeDasharray: 4,
+              },
+        };
+      });
 
       setNodes(rfNodes);
       setEdges(rfEdges);
     });
-  }, [nodesCsv, linksCsv, dark]);
+  }, [nodesCsv, linksCsv]);
+
+  useEffect(() => {
+    if (instance && nodes.length > 0) {
+      instance.fitView({ padding: 0.2 });
+    }
+  }, [instance, nodes]);
+
+  useEffect(() => {
+    if (!instance) return;
+    const handler = () => instance.fitView({ padding: 0.2 });
+
+    window.addEventListener("resize", handler);
+
+    return () => window.removeEventListener("resize", handler);
+  }, [instance]);
 
   return (
-    <Card className="h-[560px] w-full overflow-hidden border-slate-700 bg-white/90 dark:bg-black/40">
+    <div
+      className="h-[560px] w-full overflow-hidden rounded-xl border bg-[#0B1020]"
+      style={{ maskImage: "linear-gradient(to right, transparent 2%, black 13%)" }}
+    >
       {nodes.length > 0 && (
         <ReactFlow
           fitView
-          className="w-full h-full"
+          panOnScroll
           edges={edges}
-          elementsSelectable={false}
+          maxZoom={1.8}
+          minZoom={0.8}
           nodes={nodes}
           nodesConnectable={false}
           nodesDraggable={false}
+          panOnScrollSpeed={1}
           proOptions={{ hideAttribution: true }}
+          onInit={setInstance}
         >
-          <Background color={dark ? "#1f2937" : "#e5e7eb"} gap={24} />
-          <Controls showFitView={false} showZoom={false} />
+          <Background
+            color="hsl(var(--foreground-muted))"
+            gap={16}
+            size={1}
+            style={{ opacity: 0.5 }}
+            variant="dots"
+          />
         </ReactFlow>
       )}
-    </Card>
+    </div>
   );
 }
