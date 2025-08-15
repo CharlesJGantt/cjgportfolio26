@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 // react-force-graph must be client-only
 const ForceGraph2D = dynamic(
-  () => import("react-force-graph").then(m => m.ForceGraph2D),
+  () => import("react-force-graph-2d"),
   { ssr: false }
 );
 
