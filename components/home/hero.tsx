@@ -41,11 +41,11 @@ export const HeroSection = ({
         >
           <motion.h1
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent"
+            className="text-3xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent"
             initial={{ opacity: 0, y: 20 }}
             transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            Hi, I&apos;m {name} - a cross-disciplinary problem solver, maker,
+            Hi, I&apos;m {name} - a cross-disciplinary problem solver, marketer,
             and innovator blending tech, content, and design to deliver
             impactful solutions.
           </motion.h1>
