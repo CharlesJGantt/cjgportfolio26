@@ -17,7 +17,9 @@ export default function HomePage() {
           <p className="max-w-3xl text-slate-500">
             Domains orbit my core problem-solving center. Each skill connects to its domain and bridges others.
           </p>
-          <SkillMap dark />
+          <div className="max-w-5xl mx-auto">
+            <SkillMap />
+          </div>
           <ul className="mt-4 grid gap-2 text-sm text-slate-500 md:grid-cols-2">
             <li>
               <b>Domains:</b> Core Problem Solving; Technical Trades; Engineering & Design; Digital & Creative; Business & Marketing
