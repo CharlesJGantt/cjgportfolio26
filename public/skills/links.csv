@@ -1,0 +1,28 @@
+source,target
+Core Problem Solving,Learning Agility
+Core Problem Solving,Pattern Recognition
+Core Problem Solving,Adaptability
+Core Problem Solving,Knowledge Breadth
+
+Technical Trades,Masonry & Construction
+Technical Trades,Woodworking & Woodturning
+Technical Trades,Electrical Engineering Fundamentals
+
+Engineering & Design,CAD/CAM (Fusion 360, Aspire)
+Engineering & Design,PCB Design (Eagle, KiCad)
+Engineering & Design,Embedded Systems Programming
+
+Digital & Creative,Web Development (HTML/CSS/JS/Next.js)
+Digital & Creative,Adobe/DaVinci (Video & Design)
+
+Business & Marketing,SEO & Content Strategy
+Business & Marketing,Brand Building & GTM
+
+# cross-domain bridges
+Technical Trades,Engineering & Design
+Engineering & Design,Digital & Creative
+Digital & Creative,Business & Marketing
+Core Problem Solving,Technical Trades
+Core Problem Solving,Engineering & Design
+Core Problem Solving,Digital & Creative
+Core Problem Solving,Business & Marketing
