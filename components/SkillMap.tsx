@@ -1,17 +1,33 @@
 "use client";
 
+import type { Node, Edge } from "reactflow";
+
 import dynamic from "next/dynamic";
 import Papa from "papaparse";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { Card } from "@heroui/react";
+import "reactflow/dist/style.css";
 
-// react-force-graph must be client-only
-const ForceGraph2D = dynamic(
-  () => import("react-force-graph-2d"),
+const ReactFlow = dynamic(() => import("reactflow").then((mod) => mod.default), {
+  ssr: false,
+});
+const Background = dynamic(
+  () => import("reactflow").then((mod) => mod.Background),
+  { ssr: false }
+);
+const Controls = dynamic(
+  () => import("reactflow").then((mod) => mod.Controls),
   { ssr: false }
 );
 
-type Node = { id: string; label: string; type: "domain" | "skill"; fx?: number; fy?: number; degree?: number };
-type Link = { source: string; target: string };
+type CsvNode = {
+  id: string;
+  label: string;
+  type: "domain" | "skill";
+  fx?: number;
+  fy?: number;
+};
+type CsvLink = { source: string; target: string };
 
 function polar(cx: number, cy: number, r: number, deg: number) {
   const a = (deg * Math.PI) / 180;
@@ -22,51 +38,58 @@ function polar(cx: number, cy: number, r: number, deg: number) {
 export default function SkillMap({
   nodesCsv = "/skills/nodes.csv",
   linksCsv = "/skills/links.csv",
-  dark = true
-}: { nodesCsv?: string; linksCsv?: string; dark?: boolean }) {
-  const fgRef = useRef<any>(null);
-  const [data, setData] = useState<{ nodes: Node[]; links: Link[] } | null>(null);
+  dark = true,
+}: {
+  nodesCsv?: string;
+  linksCsv?: string;
+  dark?: boolean;
+}) {
+  const [nodes, setNodes] = useState<Node[]>([]);
+  const [edges, setEdges] = useState<Edge[]>([]);
 
   useEffect(() => {
-    const loadNodes = new Promise<Node[]>((resolve) =>
-      Papa.parse(nodesCsv, { download: true, header: true, skipEmptyLines: true,
-        complete: (res) => resolve((res.data as Node[]).map(n => ({ ...n, type: n.type as any }))) })
+    const loadNodes = new Promise<CsvNode[]>((resolve) =>
+      Papa.parse(nodesCsv, {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: (res) =>
+          resolve(
+            (res.data as CsvNode[]).map((n) => ({ ...n, type: n.type as any }))
+          ),
+      })
     );
-    const loadLinks = new Promise<Link[]>((resolve) =>
-      Papa.parse(linksCsv, { download: true, header: true, skipEmptyLines: true,
-        complete: (res) => resolve(res.data as Link[]) })
+    const loadLinks = new Promise<CsvLink[]>((resolve) =>
+      Papa.parse(linksCsv, {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: (res) => resolve(res.data as CsvLink[]),
+      })
     );
 
-    Promise.all([loadNodes, loadLinks]).then(([nodes, links]) => {
-      // degree map (optional: affects label sizing if you want)
-      const deg = new Map<string, number>();
+    Promise.all([loadNodes, loadLinks]).then(([nodeData, linkData]) => {
+      const W = 1200,
+        H = 720,
+        cx = W / 2,
+        cy = H / 2;
+      const domains = nodeData.filter((n) => n.type === "domain");
+      const skills = nodeData.filter((n) => n.type === "skill");
 
-      links.forEach(l => {
-        deg.set(l.source, (deg.get(l.source) || 0) + 1);
-        deg.set(l.target, (deg.get(l.target) || 0) + 1);
-      });
-      nodes.forEach(n => (n.degree = deg.get(n.id) || 0));
-
-      // deterministic layout (no force jiggle)
-      const W = 1200, H = 720, cx = W / 2, cy = H / 2;
-      const domains = nodes.filter(n => n.type === "domain");
-      const skills = nodes.filter(n => n.type === "skill");
-
-      // domains around a ring
       const step = 360 / domains.length;
 
       domains.forEach((d, i) => {
         const { x, y } = polar(cx, cy, 220, i * step - 90);
 
-        d.fx = x; d.fy = y;
+        d.fx = x;
+        d.fy = y;
       });
 
-      // map skill → home domain (first domain link found)
       const home = new Map<string, string>();
 
-      links.forEach(l => {
-        const s = nodes.find(n => n.id === l.source);
-        const t = nodes.find(n => n.id === l.target);
+      linkData.forEach((l) => {
+        const s = nodeData.find((n) => n.id === l.source);
+        const t = nodeData.find((n) => n.id === l.target);
 
         if (s && t) {
           if (s.type === "domain" && t.type === "skill") home.set(t.id, s.id);
@@ -74,87 +97,73 @@ export default function SkillMap({
         }
       });
 
-      // orbit skills around their home domain (two rings for spacing)
-      const grouped: Record<string, Node[]> = {};
+      const grouped: Record<string, CsvNode[]> = {};
 
-      skills.forEach(s => {
+      skills.forEach((s) => {
         const key = home.get(s.id) || domains[0].id;
 
         grouped[key] = grouped[key] || [];
         grouped[key].push(s);
       });
       Object.entries(grouped).forEach(([domId, arr]) => {
-        const d = domains.find(x => x.id === domId)!;
-        const r1 = 95, r2 = 145;
+        const d = domains.find((x) => x.id === domId)!;
+        const r1 = 95,
+          r2 = 145;
 
         arr.forEach((s, i) => {
           const r = i % 2 === 0 ? r1 : r2;
           const angle = (360 / arr.length) * i;
           const { x, y } = polar(d.fx!, d.fy!, r, angle);
 
-          s.fx = x; s.fy = y;
+          s.fx = x;
+          s.fy = y;
         });
       });
 
-      setData({ nodes, links });
+      const rfNodes: Node[] = nodeData.map((n) => ({
+        id: n.id,
+        position: { x: n.fx || 0, y: n.fy || 0 },
+        data: { label: n.label },
+        draggable: false,
+        selectable: false,
+        className:
+          n.type === "domain"
+            ? "rounded-lg px-3 py-2 text-sm font-medium text-white bg-indigo-600 shadow"
+            : "rounded-md px-2 py-1 text-xs text-white bg-emerald-500 shadow-sm",
+      }));
+
+      const rfEdges: Edge[] = linkData.map((l, i) => ({
+        id: `e-${i}`,
+        source: l.source,
+        target: l.target,
+        type: "smoothstep",
+        animated: false,
+        selectable: false,
+        style: { stroke: dark ? "#334155" : "#CBD5E1" },
+      }));
+
+      setNodes(rfNodes);
+      setEdges(rfEdges);
     });
-  }, [nodesCsv, linksCsv]);
-
-  const colors = {
-    bg: dark ? "#0B1020" : "#FFFFFF",
-    text: dark ? "#E5E7EB" : "#111827",
-    domain: "#4F46E5", // indigo-600
-    skill: "#10B981",  // emerald-500
-    link: dark ? "#334155" : "#CBD5E1"
-  };
-
-  const nodeCanvasObject = (node: any, ctx: CanvasRenderingContext2D) => {
-    const r = node.type === "domain" ? 12 : 8;
-
-    ctx.beginPath();
-    ctx.arc(node.x, node.y, r, 0, 2 * Math.PI);
-    ctx.fillStyle = node.type === "domain" ? colors.domain : colors.skill;
-    ctx.fill();
-
-    const label = node.label || node.id;
-    const size = Math.max(10, node.type === "domain" ? 14 : 11);
-
-    ctx.font = `${size}px Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto`;
-    ctx.fillStyle = colors.text;
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "left";
-    ctx.fillText(label, node.x + r + 6, node.y);
-  };
-
-  if (!data) {
-    return <div className="h-[560px] w-full rounded-2xl border border-slate-700" style={{ background: colors.bg }} />;
-  }
+  }, [nodesCsv, linksCsv, dark]);
 
   return (
-    <div className="relative w-full h-[560px] rounded-2xl border border-slate-700" style={{ background: colors.bg }}>
-      <ForceGraph2D
-        ref={fgRef}
-        enablePanInteraction
-        enableZoomInteraction
-        backgroundColor={colors.bg}
-        cooldownTime={0}         // fixed positions; no force animation
-        graphData={data}
-        linkColor={() => colors.link}
-        nodeCanvasObject={nodeCanvasObject}
-        nodeRelSize={1}
-      />
-      {/* Legend */}
-      <div
-        className="absolute right-3 top-3 rounded-md px-3 py-2 text-sm shadow"
-        style={{ background: dark ? "rgba(31,41,55,0.9)" : "rgba(255,255,255,0.95)", color: colors.text }}
-      >
-        <div className="flex items-center gap-2">
-          <span className="inline-block h-3 w-3 rounded-full" style={{ background: colors.domain }} /> Domains
-        </div>
-        <div className="mt-1 flex items-center gap-2">
-          <span className="inline-block h-3 w-3 rounded-full" style={{ background: colors.skill }} /> Skills
-        </div>
-      </div>
-    </div>
+    <Card className="h-[560px] w-full overflow-hidden border-slate-700 bg-white/90 dark:bg-black/40">
+      {nodes.length > 0 && (
+        <ReactFlow
+          fitView
+          className="w-full h-full"
+          edges={edges}
+          elementsSelectable={false}
+          nodes={nodes}
+          nodesConnectable={false}
+          nodesDraggable={false}
+          proOptions={{ hideAttribution: true }}
+        >
+          <Background color={dark ? "#1f2937" : "#e5e7eb"} gap={24} />
+          <Controls showFitView={false} showZoom={false} />
+        </ReactFlow>
+      )}
+    </Card>
   );
 }
