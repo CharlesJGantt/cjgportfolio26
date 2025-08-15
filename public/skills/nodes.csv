@@ -1,0 +1,21 @@
+id,label,type
+Core Problem Solving,Core Problem Solving,domain
+Technical Trades,Technical Trades,domain
+Engineering & Design,Engineering & Design,domain
+Digital & Creative,Digital & Creative,domain
+Business & Marketing,Business & Marketing,domain
+
+Learning Agility,Learning Agility,skill
+Pattern Recognition,Pattern Recognition,skill
+Adaptability,Adaptability,skill
+Knowledge Breadth,Knowledge Breadth,skill
+Masonry & Construction,Masonry & Construction,skill
+Woodworking & Woodturning,Woodworking & Woodturning,skill
+Electrical Engineering Fundamentals,Electrical Engineering Fundamentals,skill
+CAD/CAM (Fusion 360, Aspire),CAD/CAM (Fusion 360, Aspire),skill
+PCB Design (Eagle, KiCad),PCB Design (Eagle, KiCad),skill
+Embedded Systems Programming,Embedded Systems Programming,skill
+Web Development (HTML/CSS/JS/Next.js),Web Development (HTML/CSS/JS/Next.js),skill
+Adobe/DaVinci (Video & Design),Adobe/DaVinci (Video & Design),skill
+SEO & Content Strategy,SEO & Content Strategy,skill
+Brand Building & GTM,Brand Building & GTM,skill
