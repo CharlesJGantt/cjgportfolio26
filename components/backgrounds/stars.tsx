@@ -53,20 +53,53 @@ function StarLayer({
     </div>
   );
 }
-type StarsBackgroundProps = React.ComponentProps<"div"> & {
+type StarsBackgroundBaseProps = React.ComponentProps<"div"> & {
   factor?: number;
   starColor?: string;
   pointerEvents?: boolean;
 };
 
-function StarsBackground({
+type StarsBackgroundProps = StarsBackgroundBaseProps & {
+  dynamic?: boolean;
+};
+
+function StaticStarsBackground({
+  children,
+  className,
+  starColor = "#fff",
+  pointerEvents = true,
+  ...props
+}: StarsBackgroundBaseProps) {
+  return (
+    <div
+      className={cn(
+        "relative size-full overflow-hidden bg-[radial-gradient(ellipse_at_bottom,_#262626_0%,_#000_100%)]",
+        className,
+      )}
+      data-slot="stars-background"
+      {...props}
+    >
+      <div
+        className={cn({ "pointer-events-none": !pointerEvents })}
+        style={{ transform: "none" }}
+      >
+        <StarLayer count={100} size={1} starColor={starColor} />
+        <StarLayer count={40} size={2} starColor={starColor} />
+        <StarLayer count={20} size={3} starColor={starColor} />
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function DynamicStarsBackground({
   children,
   className,
   factor = 0.05,
   starColor = "#fff",
   pointerEvents = true,
   ...props
-}: StarsBackgroundProps) {
+}: StarsBackgroundBaseProps) {
   const [offset, setOffset] = React.useState({ x: 0, y: 0 });
 
   const handleMouseMove = React.useCallback(
@@ -101,6 +134,14 @@ function StarsBackground({
       </div>
       {children}
     </div>
+  );
+}
+
+function StarsBackground({ dynamic = false, ...props }: StarsBackgroundProps) {
+  return dynamic ? (
+    <DynamicStarsBackground {...props} />
+  ) : (
+    <StaticStarsBackground {...props} />
   );
 }
 
