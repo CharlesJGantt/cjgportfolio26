@@ -1,6 +1,10 @@
 import { HeroSection } from "@/components/home/hero";
 import { SkillsOverviewSection } from "@/components/home/skills-overview";
+import { ArticlesSection } from "@/components/home/articles";
+import { PressSection } from "@/components/home/press";
 import { WorkSection } from "@/components/home/work";
+import { WebsitesSection } from "@/components/home/websites";
+import { LearningSection } from "@/components/home/learning";
 import { TestimonialsSection } from "@/components/home/testimonials";
 import SkillMap from "@/components/SkillMap";
 
@@ -9,7 +13,11 @@ export default function HomePage() {
     <>
       <HeroSection />
       <SkillsOverviewSection />
+      <ArticlesSection />
+      <PressSection />
       <WorkSection />
+      <WebsitesSection />
+      <LearningSection />
       <TestimonialsSection />
       <section className="py-20 bg-background" id="skill-map">
         <div className="container mx-auto px-4 space-y-4">
