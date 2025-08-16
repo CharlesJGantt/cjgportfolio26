@@ -12,37 +12,37 @@ export const DATA = {
         "Bridging technology, creativity, and strategy to deliver high-impact solutions.",
       overview: [
         {
-          name: "Technical Writing & Content Strategy",
+          name: "Content Creation, Technical Writing, Content Stragety",
           level: 98,
           icon: "fa-solid:file-alt",
           color: "#0078D4",
         },
         {
-          name: "Drupal Development & Theming",
+          name: "Drupal Development & Theming + Support",
           level: 95,
           icon: "fa-brands:drupal",
           color: "#8E44AD",
         },
         {
-          name: "SEO & Digital Marketing Strategy",
+          name: "SEO & Digital Marketing Strategy, Social Media Marketing",
           level: 93,
           icon: "fa-solid:chart-line",
           color: "#27AE60",
         },
         {
-          name: "Electronics Prototyping (Arduino, ESP32, Raspberry Pi)",
+          name: "Electronics Engineering (CAD, Prototyping, Educational Materials",
           level: 90,
           icon: "fa-solid:microchip",
           color: "#F39C12",
         },
         {
-          name: "Web Development (HTML, CSS, JavaScript, Next.js)",
+          name: "Other Web Development (HTML, CSS, JavaScript, Next.js)",
           level: 88,
           icon: "fa-solid:code",
           color: "#E74C3C",
         },
         {
-          name: "3D CAD Design (Fusion 360, Product Modeling)",
+          name: "2D & 3D CAD Design (Fusion 360, Aspire, Lightburn)",
           level: 85,
           icon: "fa-solid:cube",
           color: "#3498DB",
