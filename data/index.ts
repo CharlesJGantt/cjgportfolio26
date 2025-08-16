@@ -294,6 +294,94 @@ export const DATA = {
           { name: "React", icon: "logos:react" },
         ],
       },
+      {
+        id: "a4",
+        title: "TailwindCSS Tips",
+        description:
+          "Utility-first workflow tricks for TailwindCSS.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=14",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=14",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=14-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=14-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=14-3",
+        ],
+        category: "Article",
+        details:
+          "Improve your styling workflow with these TailwindCSS techniques.",
+        github: "https://github.com",
+        live: "https://example.com/article-tailwind-tips",
+        tech: [
+          { name: "TailwindCSS", icon: "logos:tailwindcss-icon" },
+          { name: "CSS", icon: "logos:css-3" },
+        ],
+      },
+      {
+        id: "a5",
+        title: "Mastering TypeScript Generics",
+        description:
+          "Create flexible components with TypeScript generics.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=15",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=15",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=15-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=15-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=15-3",
+        ],
+        category: "Article",
+        details:
+          "A hands-on guide to leveraging generics for reusable TypeScript code.",
+        github: "https://github.com",
+        live: "https://example.com/article-typescript-generics",
+        tech: [
+          { name: "TypeScript", icon: "logos:typescript-icon" },
+          { name: "React", icon: "logos:react" },
+        ],
+      },
+      {
+        id: "a6",
+        title: "Building APIs with Node.js",
+        description:
+          "Steps to create robust REST APIs using Node.js.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=16",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=16",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=16-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=16-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=16-3",
+        ],
+        category: "Article",
+        details:
+          "Best practices for building and documenting RESTful APIs with Node.js.",
+        github: "https://github.com",
+        live: "https://example.com/article-nodejs-apis",
+        tech: [
+          { name: "Node.js", icon: "logos:nodejs-icon" },
+          { name: "Express", icon: "simple-icons:express" },
+        ],
+      },
+      {
+        id: "a7",
+        title: "State Management with React Hooks",
+        description:
+          "Manage complex state using built-in React hooks.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=17",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=17",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=17-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=17-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=17-3",
+        ],
+        category: "Article",
+        details:
+          "Explore advanced patterns for managing state in React applications using hooks.",
+        github: "https://github.com",
+        live: "https://example.com/article-react-hooks-state",
+        tech: [
+          { name: "React", icon: "logos:react" },
+          { name: "Hooks", icon: "mdi:hook" },
+        ],
+      },
     ],
   },
   press: {

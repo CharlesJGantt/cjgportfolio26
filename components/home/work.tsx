@@ -38,7 +38,7 @@ export const WorkSection = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
-          {work.slice(0, 3).map((project, index) => (
+          {work.slice(0, 6).map((project, index) => (
             <motion.div
               key={project.id}
               className="w-full md:max-w-none"
