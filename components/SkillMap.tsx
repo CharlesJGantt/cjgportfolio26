@@ -130,12 +130,12 @@ export default function SkillMap({
       : domains;
 
     // Layout constants
-    const domainWidth = 320;
-    const skillWidth = 280;
+    const domainWidth = 300;
+    const skillWidth = 260;
     const domainHeight = 84;
     const rowHeight = 84;
-    const rowGap = 18;
-    const colGap = 64;
+    const rowGap = 16;
+    const colGap = 48;
 
     // compute columns from container width
     const maxCols = Math.max(
@@ -184,26 +184,54 @@ export default function SkillMap({
       currentY += tallest + 48;
     });
 
+    const totalHeight = Math.max(560, currentY + 24);
+
+    setContainer((c) => ({ ...c, h: totalHeight }));
+
     const rfNodes: Node[] = [
+      // DOMAIN nodes
       ...domainList.map((d) => ({
         id: d.id,
         position: positions[d.id] || { x: 0, y: 0 },
         data: { label: d.label },
         draggable: false,
         selectable: false,
-        className:
-          "w-[320px] rounded-xl border border-emerald-500/40 bg-emerald-600/15 px-4 py-2 text-emerald-300 font-semibold tracking-tight shadow-sm backdrop-blur-sm",
+        connectable: false,
+        style: {
+          width: 300,
+          borderRadius: 12,
+          background: "rgba(5,150,105,0.15)",
+          border: "1px solid rgba(16,185,129,0.40)",
+          color: "rgb(167,243,208)",
+          padding: "8px 16px",
+          fontWeight: 600,
+          letterSpacing: "-0.01em",
+          boxShadow: "0 1px 2px rgba(0,0,0,0.25)",
+          backdropFilter: "blur(2px)",
+        },
       })),
+      // SKILL nodes
       ...skills.map((s) => ({
         id: s.id,
         position: positions[s.id] || { x: 0, y: 0 },
         data: { label: s.label },
         draggable: false,
         selectable: true,
-        className:
-          "w-[280px] rounded-lg border border-slate-700/70 bg-slate-900/50 px-3 py-2 text-sm text-slate-200 shadow-sm [&.selected]:ring-2 [&.selected]:ring-slate-400",
+        connectable: false,
+        style: {
+          width: 260,
+          borderRadius: 10,
+          background: "rgba(15,23,42,0.5)",
+          border: "1px solid rgba(51,65,85,0.70)",
+          color: "rgb(226,232,240)",
+          fontSize: 14,
+          padding: "8px 12px",
+          boxShadow: "0 1px 2px rgba(0,0,0,0.25)",
+        },
       })),
     ];
+
+    const EDGE_COLOR = "rgba(148,163,184,0.9)";
 
     const rfEdges: Edge[] = [];
 
@@ -227,28 +255,29 @@ export default function SkillMap({
         animated: !membership,
         selectable: false,
         style: membership
-          ? { stroke: "hsl(var(--border-stronger))", strokeWidth: 0.5 }
+          ? { stroke: EDGE_COLOR, strokeWidth: 1 }
           : {
-              stroke: "hsl(var(--border-stronger))",
-              strokeWidth: 0.5,
+              stroke: EDGE_COLOR,
+              strokeWidth: 1,
               strokeDasharray: 4,
+              opacity: 0.8,
             },
       });
     }
 
     setNodes(rfNodes);
-    setEdges(rfEdges);
+    requestAnimationFrame(() => setEdges(rfEdges));
   }, [rawNodes, rawLinks, container, showCrossovers]);
 
   useEffect(() => {
     if (instance && nodes.length > 0) {
-      requestAnimationFrame(() => instance.fitView({ padding: 0.2 }));
+      requestAnimationFrame(() => instance.fitView({ padding: 0.25 }));
     }
   }, [instance, nodes, edges]);
 
   useEffect(() => {
     if (!instance) return;
-    const handler = () => instance.fitView({ padding: 0.2 });
+    const handler = () => instance.fitView({ padding: 0.25 });
 
     window.addEventListener("resize", handler);
 
@@ -256,24 +285,16 @@ export default function SkillMap({
   }, [instance]);
 
   return (
-    <div
-      ref={wrapRef}
-      className="h-[560px] w-full overflow-hidden rounded-xl border bg-[#0B1020]"
-      style={{ maskImage: "linear-gradient(to right, transparent 2%, black 13%)" }}
-    >
-      {nodes.length > 0 && (
-        <>
-          <div className="flex items-center justify-end px-3 py-2">
-            <label className="inline-flex items-center gap-2 text-xs text-slate-400">
-              <input
-                checked={showCrossovers}
-                className="rounded border-slate-600 bg-slate-800"
-                type="checkbox"
-                onChange={(e) => setShowCrossovers(e.target.checked)}
-              />
-              Show crossovers
-            </label>
-          </div>
+    <section aria-label="Interconnected Skill Map">
+      <div
+        ref={wrapRef}
+        className="w-full overflow-hidden rounded-xl border bg-[#0B1020]"
+        style={{
+          height: container.h,
+          maskImage: "linear-gradient(to right, transparent 2%, black 13%)",
+        }}
+      >
+        {nodes.length > 0 && (
           <ReactFlow
             fitView
             panOnScroll
@@ -287,16 +308,26 @@ export default function SkillMap({
             proOptions={{ hideAttribution: true }}
             onInit={setInstance}
           >
+            <div className="absolute right-3 top-3 z-10 rounded-md bg-slate-900/90 px-3 py-2 text-xs text-slate-200">
+              <label className="inline-flex items-center gap-2">
+                <input
+                  checked={showCrossovers}
+                  type="checkbox"
+                  onChange={(e) => setShowCrossovers(e.target.checked)}
+                />
+                Show crossovers
+              </label>
+            </div>
             <Background
-              color="hsl(var(--foreground-muted))"
+              color="#334155"
               gap={16}
               size={1}
               style={{ opacity: 0.5 }}
               variant="dots"
             />
           </ReactFlow>
-        </>
-      )}
-    </div>
+        )}
+      </div>
+    </section>
   );
 }
