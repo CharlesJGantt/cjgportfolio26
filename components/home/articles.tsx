@@ -54,7 +54,7 @@ export const ArticlesSection = () => {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
-          {articles.slice(1, 4).map((article, index) => (
+          {articles.slice(1, 7).map((article, index) => (
             <motion.div
               key={article.id}
               className="w-full md:max-w-none"
