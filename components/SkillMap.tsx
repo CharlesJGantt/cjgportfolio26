@@ -186,7 +186,12 @@ export default function SkillMap({
 
     const totalHeight = Math.max(560, currentY + 24);
 
-    setContainer((c) => ({ ...c, h: totalHeight }));
+    // Only update container height if it actually changed. Otherwise, this
+    // effect would trigger continuously because `container` is one of the
+    // dependencies and we were setting state on every render. That resulted in
+    // the "Maximum update depth exceeded" error reported when the skill map was
+    // updated.
+    setContainer((c) => (c.h === totalHeight ? c : { ...c, h: totalHeight }));
 
     const rfNodes: Node[] = [
       // DOMAIN nodes
@@ -267,7 +272,7 @@ export default function SkillMap({
 
     setNodes(rfNodes);
     requestAnimationFrame(() => setEdges(rfEdges));
-  }, [rawNodes, rawLinks, container, showCrossovers]);
+  }, [rawNodes, rawLinks, container.w, showCrossovers]);
 
   useEffect(() => {
     if (instance && nodes.length > 0) {
