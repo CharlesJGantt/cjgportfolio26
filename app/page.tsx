@@ -6,6 +6,7 @@ import { WorkSection } from "@/components/home/work";
 import { WebsitesSection } from "@/components/home/websites";
 import { LearningSection } from "@/components/home/learning";
 import SkillMap from "@/components/SkillMap";
+import { GradientText } from "@/components/textAnimations/gradient-text";
 
 export default function HomePage() {
   return (
@@ -18,11 +19,16 @@ export default function HomePage() {
       <WebsitesSection />
       <LearningSection />
       <section className="py-20 bg-background" id="skill-map">
-        <div className="container mx-auto px-4 space-y-4">
-          <h2 className="text-2xl font-bold">Interconnected Skill Map</h2>
-          <p className="max-w-3xl text-slate-500">
-            Categories group my capabilities; lines show crossovers where skills reinforce each other.
-          </p>
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8 space-y-4">
+            <GradientText
+              className="text-3xl md:text-4xl font-bold gradient"
+              text="Interconnected Skill Map"
+            />
+            <p className="text-foreground-600 text-lg max-w-2xl mx-auto">
+              Categories group my capabilities; lines show crossovers where skills reinforce each other.
+            </p>
+          </div>
           <div className="max-w-5xl mx-auto">
             <SkillMap />
           </div>
