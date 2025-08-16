@@ -5,7 +5,6 @@ import { PressSection } from "@/components/home/press";
 import { WorkSection } from "@/components/home/work";
 import { WebsitesSection } from "@/components/home/websites";
 import { LearningSection } from "@/components/home/learning";
-import { TestimonialsSection } from "@/components/home/testimonials";
 import SkillMap from "@/components/SkillMap";
 
 export default function HomePage() {
@@ -18,7 +17,6 @@ export default function HomePage() {
       <WorkSection />
       <WebsitesSection />
       <LearningSection />
-      <TestimonialsSection />
       <section className="py-20 bg-background" id="skill-map">
         <div className="container mx-auto px-4 space-y-4">
           <h2 className="text-2xl font-bold">Interconnected Skill Map</h2>

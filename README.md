@@ -71,7 +71,7 @@ All the data for the portfolio (personal information, projects, skills, etc.) is
 
 This file exports a `DATA` object that contains all the information for your portfolio. Here's a breakdown of the structure:
 
-- `home`: Content for the home page, including the hero section, skills overview, and testimonials.
+  - `home`: Content for the home page, including the hero section and skills overview.
 - `about`: Information for the about page, including your profile, education, experience, and technologies.
 - `projects`: A list of your featured projects, including details, images, and links.
 - `contact`: Contact information and the Google Maps source for the contact page.
