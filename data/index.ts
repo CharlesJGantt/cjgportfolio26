@@ -223,6 +223,152 @@ export const DATA = {
       },
     },
   },
+  articles: {
+    sectionTitle: "My Recent Articles",
+    sectionDescription:
+      "Insights and tutorials from my latest writing.",
+    work: [
+      {
+        id: "a1",
+        title: "Understanding Next.js 15",
+        description:
+          "Overview of the latest features in Next.js 15.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=11",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=11",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=11-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=11-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=11-3",
+        ],
+        category: "Article",
+        details:
+          "Deep dive into the capabilities introduced with Next.js 15 and how to leverage them in your applications.",
+        github: "https://github.com",
+        live: "https://example.com/article-nextjs-15",
+        tech: [
+          { name: "Next.js", icon: "skill-icons:nextjs-dark" },
+          { name: "TypeScript", icon: "logos:typescript-icon" },
+        ],
+      },
+      {
+        id: "a2",
+        title: "Designing Accessible UI",
+        description:
+          "Best practices for building inclusive interfaces.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=12",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=12",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=12-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=12-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=12-3",
+        ],
+        category: "Article",
+        details:
+          "Practical guide to designing and auditing for accessibility using modern tools.",
+        github: "https://github.com",
+        live: "https://example.com/article-accessible-ui",
+        tech: [
+          { name: "Figma", icon: "logos:figma" },
+          { name: "Accessibility", icon: "mdi:accessibility" },
+        ],
+      },
+      {
+        id: "a3",
+        title: "Improving Performance with Vercel",
+        description:
+          "Tips for speeding up deployments on Vercel.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=13",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=13",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=13-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=13-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=13-3",
+        ],
+        category: "Article",
+        details:
+          "Optimization techniques for faster builds and better performance when deploying on Vercel.",
+        github: "https://github.com",
+        live: "https://example.com/article-vercel-performance",
+        tech: [
+          { name: "Vercel", icon: "simple-icons:vercel" },
+          { name: "React", icon: "logos:react" },
+        ],
+      },
+    ],
+  },
+  press: {
+    sectionTitle: "Press & Mentions",
+    sectionDescription:
+      "Media features and shout-outs.",
+    work: [
+      {
+        id: "p1",
+        title: "TechCrunch Feature",
+        description:
+          "Coverage of my latest project launch on TechCrunch.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=31",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=31",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=31-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=31-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=31-3",
+        ],
+        category: "Press",
+        details:
+          "Interview discussing the impact and development process of the project.",
+        github: "https://github.com",
+        live: "https://example.com/techcrunch-feature",
+        tech: [
+          { name: "Next.js", icon: "skill-icons:nextjs-dark" },
+          { name: "TailwindCSS", icon: "logos:tailwindcss-icon" },
+        ],
+      },
+      {
+        id: "p2",
+        title: "Podcast Mention",
+        description:
+          "Discussed on the 'Dev Chats' podcast episode 42.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=32",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=32",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=32-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=32-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=32-3",
+        ],
+        category: "Press",
+        details:
+          "Spoke about open-source contributions and community building.",
+        github: "https://github.com",
+        live: "https://example.com/dev-chats-episode",
+        tech: [
+          { name: "React", icon: "logos:react" },
+          { name: "TypeScript", icon: "logos:typescript-icon" },
+        ],
+      },
+      {
+        id: "p3",
+        title: "Local News Interview",
+        description:
+          "Featured in a local news segment about tech education.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=33",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=33",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=33-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=33-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=33-3",
+        ],
+        category: "Press",
+        details:
+          "Discussed initiatives to bring coding workshops to underserved communities.",
+        github: "https://github.com",
+        live: "https://example.com/local-news-interview",
+        tech: [
+          { name: "Node.js", icon: "logos:nodejs-icon" },
+          { name: "Community", icon: "mdi:account-group" },
+        ],
+      },
+    ],
+  },
   projects: {
     sectionTitle: "Featured Projects",
     sectionDescription:
@@ -460,7 +606,153 @@ export const DATA = {
           { name: "Stripe", icon: "logos:stripe" },
           { name: "PostgreSQL", icon: "logos:postgresql" },
           { name: "Redis", icon: "logos:redis" },
-          { name: "JWT", icon: "simple-icons:jsonwebtokens" },
+      { name: "JWT", icon: "simple-icons:jsonwebtokens" },
+        ],
+      },
+    ],
+  },
+  websites: {
+    sectionTitle: "Recent Websites",
+    sectionDescription:
+      "Latest web builds and redesigns.",
+    work: [
+      {
+        id: "w1",
+        title: "Portfolio Redesign",
+        description:
+          "Modern refresh of my personal portfolio.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=21",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=21",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=21-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=21-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=21-3",
+        ],
+        category: "Website",
+        details:
+          "Responsive portfolio built with Next.js and TailwindCSS showcasing projects and articles.",
+        github: "https://github.com",
+        live: "https://example.com/portfolio",
+        tech: [
+          { name: "Next.js", icon: "skill-icons:nextjs-dark" },
+          { name: "TailwindCSS", icon: "logos:tailwindcss-icon" },
+        ],
+      },
+      {
+        id: "w2",
+        title: "E-commerce Shop",
+        description:
+          "Storefront for handcrafted goods.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=22",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=22",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=22-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=22-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=22-3",
+        ],
+        category: "Website",
+        details:
+          "Full-featured e-commerce site with product management and checkout.",
+        github: "https://github.com",
+        live: "https://example.com/shop",
+        tech: [
+          { name: "React", icon: "logos:react" },
+          { name: "Stripe", icon: "logos:stripe" },
+        ],
+      },
+      {
+        id: "w3",
+        title: "Blog Platform",
+        description:
+          "Lightweight blog powered by MDX.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=23",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=23",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=23-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=23-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=23-3",
+        ],
+        category: "Website",
+        details:
+          "Static blog built with Next.js, MDX, and TailwindCSS.",
+        github: "https://github.com",
+        live: "https://example.com/blog",
+        tech: [
+          { name: "Next.js", icon: "skill-icons:nextjs-dark" },
+          { name: "MDX", icon: "file-icons:mdx" },
+        ],
+      },
+    ],
+  },
+  learning: {
+    sectionTitle: "Learning & Tutorials",
+    sectionDescription:
+      "Guides and educational content I'm creating.",
+    work: [
+      {
+        id: "l1",
+        title: "TypeScript Basics",
+        description:
+          "Introductory tutorial on TypeScript fundamentals.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=41",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=41",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=41-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=41-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=41-3",
+        ],
+        category: "Tutorial",
+        details:
+          "Covers types, interfaces, and generics with practical examples.",
+        github: "https://github.com",
+        live: "https://example.com/typescript-basics",
+        tech: [
+          { name: "TypeScript", icon: "logos:typescript-icon" },
+          { name: "JavaScript", icon: "logos:javascript" },
+        ],
+      },
+      {
+        id: "l2",
+        title: "Responsive Design Workshop",
+        description:
+          "Hands-on session about building responsive layouts with Flexbox and Grid.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=42",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=42",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=42-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=42-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=42-3",
+        ],
+        category: "Tutorial",
+        details:
+          "Explains modern CSS techniques for adaptive UIs.",
+        github: "https://github.com",
+        live: "https://example.com/responsive-design-workshop",
+        tech: [
+          { name: "CSS", icon: "logos:css-3" },
+          { name: "TailwindCSS", icon: "logos:tailwindcss-icon" },
+        ],
+      },
+      {
+        id: "l3",
+        title: "Node.js API Course",
+        description:
+          "Step-by-step course on building REST APIs with Node.js and Express.",
+        image: "https://img.heroui.chat/image/dashboard?w=600&h=400&u=43",
+        gallery: [
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=43",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=43-1",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=43-2",
+          "https://img.heroui.chat/image/dashboard?w=600&h=400&u=43-3",
+        ],
+        category: "Tutorial",
+        details:
+          "From routing basics to authentication and database integration.",
+        github: "https://github.com",
+        live: "https://example.com/node-api-course",
+        tech: [
+          { name: "Node.js", icon: "logos:nodejs-icon" },
+          { name: "Express", icon: "simple-icons:express" },
         ],
       },
     ],
