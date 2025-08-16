@@ -17,6 +17,8 @@ export const ArticlesSection = () => {
   const handleOpenModal = (article: Project) => setSelectedArticle(article);
   const handleCloseModal = () => setSelectedArticle(null);
 
+  const featuredArticle = articles[0];
+
   return (
     <section className="py-20 bg-background" id="articles-section">
       <div className="max-w-7xl mx-auto px-4">
@@ -36,8 +38,23 @@ export const ArticlesSection = () => {
           </p>
         </motion.div>
 
+        {featuredArticle && (
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            whileInView={{ opacity: 1, y: 0 }}
+          >
+            <ProjectCard
+              project={featuredArticle}
+              onViewDetails={() => handleOpenModal(featuredArticle)}
+            />
+          </motion.div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
-          {articles.slice(0, 3).map((article, index) => (
+          {articles.slice(1, 4).map((article, index) => (
             <motion.div
               key={article.id}
               className="w-full md:max-w-none"
